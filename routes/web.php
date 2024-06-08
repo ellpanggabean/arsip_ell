@@ -16,8 +16,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('base.dashboard');
 });
+
+Route::get('/storage/{path}', function ($path) {
+    dd($path);
+    $pathToFile = storage_path('app/public/' . $path);
+
+    if (!File::exists($pathToFile)) {
+        abort(404);
+    }
+
+    $file = File::get($pathToFile);
+    $type = File::mimeType($pathToFile);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+})->where('path', '.*');
 
 Route::get('/surat', [SuratController::class, 'index'])->name('surat.index');
 Route::get('/surat/create', [SuratController::class, 'create'])->name('surat.create');
@@ -34,5 +51,13 @@ Route::get('/kegiatan/edit/{id}', [KegiatanController::class, 'edit'])->name('ke
 Route::put('/kegiatan/update/{id}', [KegiatanController::class, 'update'])->name('kegiatan.update');
 Route::get('/kegiatan/show', [KegiatanController::class, 'show'])->name('kegiatan.show');
 Route::delete('/kegiatan/destroy/{id}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy');
+
+Route::get('/keterangan', [KeteranganController::class, 'index'])->name('keterangan.index');
+Route::get('/keterangan/create', [KeteranganController::class, 'create'])->name('keterangan.create');
+Route::post('/keterangan/store', [KeteranganController::class, 'store'])->name('keterangan.store');
+Route::get('/keterangan/edit/{id}', [KeteranganController::class, 'edit'])->name('keterangan.edit');
+Route::put('/keeterangan/update/{id}', [KeteranganController::class, 'update'])->name('keterangan.update');
+Route::get('/keterangan/show', [KeteranganController::class, 'show'])->name('keterangan.show');
+Route::delete('/keterangan/destroy/{id}', [KeteranganController::class, 'destroy'])->name('keterangan.destroy');
 
 Route::view('dashboard','base.dashboard');

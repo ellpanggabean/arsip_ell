@@ -50,7 +50,11 @@ class SuratController extends Controller
         ]);
         
         if($request->file('foto')){
-            $data['foto'] = $request->file('foto')->store('asset/scanSurat', 'public');
+            // Simpan gambar ke direktori storage
+            $path = $request->file('foto')->store('public/images');
+
+            // Ubah path agar sesuai dengan penyimpanan di storage/app/public
+            $data['foto'] = str_replace('public/', '', $path);
         }
         Mail::create($data);
 
@@ -107,7 +111,11 @@ class SuratController extends Controller
         ]);
         
         if($request->file('foto')){
-            $data['foto'] = $request->file('foto')->store('asset/scanSurat', 'public');
+            // Simpan gambar ke direktori storage
+            $path = $request->file('foto')->store('public/images');
+
+            // Ubah path agar sesuai dengan penyimpanan di storage/app/public
+            $data['foto'] = str_replace('public/', '', $path);
         }
 
         $item->update($data);

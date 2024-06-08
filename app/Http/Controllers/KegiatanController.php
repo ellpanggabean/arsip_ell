@@ -50,9 +50,14 @@ class KegiatanController extends Controller
             'foto'=>'image|nullable',
         ]);
         if($request->file('foto')){
-            $data['foto'] = $request->file('foto')->store('asset/scanKegiatan', 'public');
+            // Simpan gambar ke direktori storage
+            $path = $request->file('foto')->store('public/images');
+
+            // Ubah path agar sesuai dengan penyimpanan di storage/app/public
+            $data['foto'] = str_replace('public/', '', $path);
+
         }
-        Activity::create($data);
+        $item = Activity::create($data);
 
         return redirect()->route('kegiatan.index')->with([
             'success' => 'Data Berhasil Ditambahkan',
@@ -65,13 +70,7 @@ class KegiatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $item = Activity::find($id);
-        return view('kegiatan.print',[
-            'item'=>$item,
-        ]);
-    }
+ 
 
     /**
      * Show the form for editing the specified resource.
@@ -103,15 +102,19 @@ class KegiatanController extends Controller
         $this->validate($request,[
             'name'=>'required',
             'tanggal'=>'required',
-            'deskrips'=>'required',
+            'deskripsi'=>'required',
             'foto'=>'image|nullable',
         ]);
         if($request->file('foto')){
-            $data['foto'] = $request->file('foto')->store('asset/scanKegiatan', 'public');
+           // Simpan gambar ke direktori storage
+           $path = $request->file('foto')->store('public/images');
+
+           // Ubah path agar sesuai dengan penyimpanan di storage/app/public
+           $data['foto'] = str_replace('public/', '', $path);
         }
 
         $item->update($data);
-        return redirect()->route('surat.index')->with([
+        return redirect()->route('kegiatan.index')->with([
             'success' => 'Data Berhasil Ditambahkan',
         ]);
     }
@@ -124,7 +127,6 @@ class KegiatanController extends Controller
      */
     public function destroy($id)
     {
-    // dd('ini hapus');
     $item = Activity::find($id);
     $item->delete();
     return back()->with('success','Berhasil Dihapus');

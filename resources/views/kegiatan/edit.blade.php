@@ -1,63 +1,126 @@
-@extends('layout.main')
-@section('content')
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Data Kegiatan HIMANIKA FT UNP</h1>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-        <div class="row mb-2">
-            <div class="col-8">
-                <a href="#" class="btn btn-sm btn-primary rounded-pill ml-2">Tambah Data</a href="#">
-            </div>
-            <div class="col-4">
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" class="" placeholder="Cari Data">
-                    </div>
-                    <div class="col-4">
-                        <button class="rounded-pill btn btn-sm btn-secondary">search</button>
+{{-- @extends('layout.main')
+@section('content') --}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="{{asset('plugins/jqvmap/jqvmap.min.css')}}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css')}}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
+  <!-- summernote -->
+  <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div class="container">
+    <div class=" text-center mt-5 ">
+        <h1 >Tambah Data kegiatan Form</h1>
+    </div>
+<div class="row ">
+  <div class="col-lg-7 mx-auto">
+    <div class="card mt-2 mx-auto p-4 bg-light">
+        <div class="card-body bg-light">
+        <div class = "container">
+          <form id="contact-form" action="{{ route('kegiatan.update',$item->id) }}" role="form" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="controls">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="form_name">Nama Surat *</label>
+                        <input id="form_name" type="text" name="name" class="form-control" placeholder="masukan nama surat" required="required" data-error="data surat is required.">
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="form_email">Tanggal *</label>
+                        <input id="form_email" type="date" name="tanggal" class="form-control" placeholder="masukan tanggal surat" required="required" data-error="Valid date is required.">     
+                    </div>
+                </div>
+          </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="form_email">deskripsi *</label>
+                        <input id="form_deskripsi" type="text" name="deskripsi" class="form-control" placeholder="masukan deskripsi" required="required" data-error="Valid deskripsi is required.">     
+                    </div>
+                </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="form_message">gambar *</label>
+                <input type="file" name="foto" id="">
+              </div>
+                </div>
+                  <div class="col-md-6">             
+                    <input type="submit" class="btn btn-danger btn-send  pt-2 btn-block" value="cancel" >
+                  </div>
+                  <div class="col-md-6">             
+                    <input type="submit" class="btn btn-success btn-send  pt-2 btn-block" value="input data" >
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-        <div><table class="table">
-            <thead>
-              <tr>
-                <th scope="col">No</th>
-                <th scope="col">Nama Surat</th>
-                <th scope="col">Tanggal Surat</th>
-                <th scope="col">Foto</th>
-                <th scope="col">Tools</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>
-                  <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                  <button class="btn btn-sm btn-success"><i class="fas fa-print"></i></button>
-                </td>
-                  
-              </tr>
-            </tbody>
-          </table></div>
-      </div><!-- /.container-fluid -->
+      </div>
     </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
   </div>
-@endsection
+</div>
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- ChartJS -->
+<script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
+<!-- Sparkline -->
+<script src="{{asset('plugins/sparklines/sparkline.js')}}"></script>
+<!-- JQVMap -->
+<script src="{{asset('plugins/jqvmap/jquery.vmap.min.js')}}"></script>
+<script src="{{asset('plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{{asset('plugins/jquery-knob/jquery.knob.min.js')}}"></script>
+<!-- daterangepicker -->
+<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- Summernote -->
+<script src="{{asset('plugins/summernote/summernote-bs4.min.js')}}"></script>
+<!-- overlayScrollbars -->
+<script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('dist/js/adminlte.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('dist/js/demo.js') }}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+</body>
+</html>
+{{-- @endsection --}}

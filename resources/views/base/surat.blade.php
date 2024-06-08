@@ -42,8 +42,8 @@
                   <td>{{ $item->name ?? '' }}</td>
                   <td>{{ $item->tanggal ?? '' }}</td>
                   <td>
-                    <a href="{{ Storage::url($item->foto) }}" target="_blank">
-                      <img src="{{ Storage::url($item->foto ?? '') }}" alt="" class="img img-fluid" width="150" height="150"></td>
+                    <a href="{{ url('/storage', $item->foto) }}" target="_blank">
+                      <img src="{{ url('/storage', $item->foto ?? '') }}" alt="" class="img img-fluid" width="150" height="150"></td>
                     </a>
                   <td>
                     <a href="{{ route('surat.edit', $item->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -52,7 +52,7 @@
                     @method('DELETE')
                       <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                     </form>
-                    <a href="{{ route('surat.show') }}" class="btn btn-sm btn-success"><i class="fas fa-print"></i></a>
+                    <a href="{{ url('/storage', $item->foto) }}" class="btn btn-sm btn-success" id='printSurat'><i class="fas fa-print"></i></a>
                   </td>
                 </tr>
               @endforeach
@@ -71,4 +71,17 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var print = document.getElementById('printSurat');
+    print.addEventListener('click', function(e){
+      e.preventDefault();
+      var newWindow = window.open(this.href, '_blank');
+
+      newWindow.addEventListener('load', function(){
+        newWindow.print();
+      })
+    })
+  })
+</script>
   @endsection

@@ -38,7 +38,7 @@
     <div class="card mt-2 mx-auto p-4 bg-light">
         <div class="card-body bg-light">
         <div class = "container">
-          <form id="contact-form" role="form">
+          <form id="contact-form" action="{{ route('kegiatan.store') }}" role="form" method="post" enctype="multipart/form-data">
             @csrf
             <div class="controls">
             <div class="row">
